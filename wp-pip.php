@@ -85,7 +85,7 @@ class WP_PiP {
         }
       },
       template: `<iframe hidden ref="iframe"  src="<?php echo esc_url($preview_link);?>" frameBorder="0" />
-      <?php echo '<button @click.prevent="togglePiP"  class="button button_pip" :disabled="!isPiPSupported">PIP</button>'; ?>`
+      <?php echo '<button @click.prevent="togglePiP"  class="button button_pip" :disabled="!isPiPSupported">PiP</button>'; ?>`
     })
     document.addEventListener('DOMContentLoaded', () => app.mount('#app'));
   </script>
