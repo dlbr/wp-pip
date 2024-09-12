@@ -36,7 +36,7 @@ class WP_PiP {
   <script type="importmap">
     {
       "imports": {
-        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        "vue": "https://unpkg.com/vue@3.5.4/dist/vue.esm-browser.js"
       }
     }
   </script>
