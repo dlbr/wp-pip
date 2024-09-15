@@ -55,7 +55,7 @@ class WP_PiP {
               width: 390,
               height: 844
             })
-            const styleSheet = 'iframe { display: block;width: 100%; height: 100%; margin: 0} body {margin: 0}'
+            const styleSheet = 'iframe { display: block; width: 100%; height: 100%; margin: 0;} body {margin: 0;}'
             const style = document.createElement('style')
             style.textContent = styleSheet
             pipWindow.document.head.appendChild(style)
@@ -84,7 +84,7 @@ class WP_PiP {
           togglePiP
         }
       },
-      template: `<iframe hidden ref="iframe"  src="<?php echo esc_url($preview_link);?>" frameBorder="0" />
+      template: `<iframe hidden ref="iframe"  src="<?php echo esc_url($preview_link); ?>" frameBorder="0" />
       <?php echo '<button @click.prevent="togglePiP"  class="button button_pip" :disabled="!isPiPSupported">PiP</button>'; ?>`
     })
     document.addEventListener('DOMContentLoaded', () => app.mount('#app'));
