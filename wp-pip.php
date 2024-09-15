@@ -47,7 +47,7 @@ class WP_PiP {
         const iframe = ref(null)
         const isInPiPMode = ref(false)
         const isPiPSupported = ref(false)
-        const pipMode = x => isInPiPMode.value = x
+        const pipMode = (state = false) => isInPiPMode.value = state
 
         const togglePiP = async () => {
           if (!document.pictureInPictureElement) {
@@ -71,11 +71,11 @@ class WP_PiP {
         onMounted(() => {
           isPiPSupported.value = ('pictureInPictureEnabled' in document)
           iframe.value.addEventListener('enterpictureinpicture', pipMode(true))
-          iframe.value.addEventListener('leavepictureinpicture', pipMode(false))
+          iframe.value.addEventListener('leavepictureinpicture', pipMode())
         })
         onBeforeUnmount(() => {
-          iframe.value.removeEventListener('enterpictureinpicture')
-          iframe.value.removeEventListener('leavepictureinpicture')
+          iframe.value.removeEventListener('enterpictureinpicture', pipMode())
+          iframe.value.removeEventListener('leavepictureinpicture', pipMode())
         })
         return {
           iframe,
