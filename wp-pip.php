@@ -53,7 +53,7 @@ class WP_PiP {
     }
 
     public function add_pip() {
-        echo '<div id="wp-pip-container"></div>';
+        echo '<div id="wp_pip_container"></div>';
     }
 }
 

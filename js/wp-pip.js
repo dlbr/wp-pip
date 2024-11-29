@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const container = document.getElementById('wp-pip-container');
+  const container = document.getElementById('wp_pip_container');
   if (!container) return;
 
   const iframe = document.createElement('iframe');
@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const button = document.createElement('button');
   button.textContent = wpPipData.pipButtonText;
-  button.className = 'button button_pip';
+  button.className = 'button wp_pip_button';
 
   const errorSpan = document.createElement('span');
-  errorSpan.className = 'pip-error';
+  errorSpan.className = 'wp_pip_error';
 
   container.appendChild(iframe);
   container.appendChild(button);
