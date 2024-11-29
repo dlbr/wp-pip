@@ -1,25 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const container = document.getElementById('wp_pip_container');
+  const container = document.getElementById('wp-pip-container');
   if (!container) return;
 
   const iframe = document.createElement('iframe');
-  iframe.src = wpPipData.previewLink;
   iframe.style.display = 'none';
-  iframe.setAttribute('frameBorder', '0');
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.border = 'none';
 
   const button = document.createElement('button');
   button.textContent = wpPipData.pipButtonText;
-  button.className = 'button wp_pip_button';
+  button.className = 'button button_pip';
 
   const errorSpan = document.createElement('span');
-  errorSpan.className = 'wp_pip_error';
+  errorSpan.className = 'pip-error';
 
-  container.appendChild(iframe);
   container.appendChild(button);
   container.appendChild(errorSpan);
 
   let isInPiPMode = false;
-  const isPiPSupported = 'pictureInPictureEnabled' in document;
+  const isPiPSupported = 'documentPictureInPicture' in window;
 
   button.disabled = !isPiPSupported;
 
@@ -27,14 +27,23 @@ document.addEventListener('DOMContentLoaded', function () {
     errorSpan.textContent = wpPipData.unsupportedBrowserText;
   }
 
+  async function loadIframe() {
+    return new Promise((resolve, reject) => {
+      iframe.onload = resolve;
+      iframe.onerror = reject;
+      iframe.src = wpPipData.previewLink;
+    });
+  }
+
   async function togglePiP() {
     try {
       if (!document.pictureInPictureElement) {
+        await loadIframe();
         const pipWindow = await documentPictureInPicture.requestWindow({
           width: 390,
           height: 844
         });
-        const styleSheet = 'iframe { display: block; width: 100%; height: 100%; margin: 0;} body {margin: 0;}';
+        const styleSheet = 'body { margin: 0; }';
         const style = document.createElement('style');
         style.textContent = styleSheet;
         pipWindow.document.head.appendChild(style);
@@ -43,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         isInPiPMode = true;
       } else {
         await document.exitPictureInPicture();
+        container.appendChild(iframe);
         isInPiPMode = false;
       }
     } catch (error) {
@@ -56,11 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
     togglePiP();
   });
 
-  iframe.addEventListener('enterpictureinpicture', function () {
-    isInPiPMode = true;
-  });
-
-  iframe.addEventListener('leavepictureinpicture', function () {
-    isInPiPMode = false;
+  document.addEventListener('picture-in-picture-change', (event) => {
+    isInPiPMode = event.target === iframe;
   });
 });

@@ -34,10 +34,12 @@ class WP_PiP {
         wp_enqueue_style('wp-pip', plugin_dir_url(__FILE__) . 'css/wp-pip.css', array(), '1.0.2');
 
         $preview_link = $this->get_preview_link();
+        $nonce = wp_create_nonce('wp_pip_nonce');
         wp_localize_script('wp-pip', 'wpPipData', array(
             'previewLink' => esc_url($preview_link),
             'pipButtonText' => esc_html__('PiP', 'wp-pip'),
-            'unsupportedBrowserText' => esc_html__('Your browser does not support Picture-in-Picture.', 'wp-pip')
+            'unsupportedBrowserText' => esc_html__('Your browser does not support Picture-in-Picture.', 'wp-pip'),
+            'nonce' => $nonce
         ));
     }
 
@@ -53,7 +55,7 @@ class WP_PiP {
     }
 
     public function add_pip() {
-        echo '<div id="wp_pip_container"></div>';
+        echo '<div id="wp-pip-container"></div>';
     }
 }
 

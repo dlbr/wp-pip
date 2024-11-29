@@ -1,8 +1,8 @@
-.wp_pip_button {
+.button_pip {
   margin-right: 8px !important;
 }
 
-.wp_pip_error {
+.pip-error {
   color: #d63638;
   margin-left: 8px;
 }
